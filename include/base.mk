@@ -15,6 +15,7 @@ ifndef VERSION
 $(error Did not specify package version)
 endif
 
+FPM_ARGS += $(DEPENDS) --iteration $(ITERATION) -v $(VERSION)
 
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
@@ -27,7 +28,7 @@ $(PKGDIR):
 	cd $(PKGDIR); fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) $(NAME)
 
 clean:
-	rm -rf $(BUILDDIR) $(CACHEDIR)
+	rm -rf tmp
 
 distclean: clean
 	rm -rf $(PKGDIR)
