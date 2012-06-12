@@ -26,6 +26,22 @@ ifdef PACKAGE_URL
 FPM_ARGS += --url $(PACKAGE_URL)
 endif
 
+ifdef POSTINSTALL
+FPM_ARGS += --after-install $(POSTINSTALL)
+endif
+
+ifdef POSTUNINSTALL
+FPM_ARGS += --after-remove $(POSTUNINSTALL)
+endif
+
+ifdef PREINSTALL
+FPM_ARGS += --before-install $(PREINSTALL)
+endif
+
+ifdef PREUNINSTALL
+FPM_ARGS += --before-uninstall $(PREUNINSTALL)
+endif
+
 ifeq ($(FPM_SOURCE),dir)
 FPM_CMD := fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) -n $(NAME) \
 	-v $(VERSION) -C $(DESTDIR) .
