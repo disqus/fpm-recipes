@@ -1,4 +1,4 @@
-NAME = rubygems
+NAME = rubygems1.8
 VERSION = 1.8.24
 DEPENDS := ruby1.8
 FPM_SOURCE = dir
