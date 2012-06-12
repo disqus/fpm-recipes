@@ -1,8 +1,11 @@
 NAME = rubygems
 VERSION = 1.8.24
-DEPENDS := -d ruby1.8
+DEPENDS := ruby1.8
 FPM_SOURCE = dir
-SOURCE_URL=http://production.cf.rubygems.org/rubygems/$(NAME)-$(VERSION).tgz
+SOURCE_URL = http://production.cf.rubygems.org/rubygems/$(NAME)-$(VERSION).tgz
+PACKAGE_URL =  http://www.rubygems.org
+PACKAGE_DESCRIPTION = package management framework for Ruby libraries/applications
+PACKAGE_PROVIDES = rubygems rubygems1.8
 
 include ../include/base.mk
 

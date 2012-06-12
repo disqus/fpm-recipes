@@ -11,20 +11,33 @@ ifndef ITERATION
 ITERATION = 1
 endif
 
-all: build package
+FPM_ARGS += $(foreach pkg,$(DEPENDS),-d $(pkg))
+FPM_ARGS += --iteration $(ITERATION) -v $(VERSION)
 
-checkversion:
-ifndef VERSION
-$(error Did not specify package version)
+ifdef PACKAGE_DESCRIPTION
+FPM_ARGS += --description "$(PACKAGE_DESCRIPTION)"
 endif
 
-FPM_ARGS += $(DEPENDS) --iteration $(ITERATION) -v $(VERSION)
+ifdef PACKAGE_PROVIDES
+FPM_ARGS += $(foreach pkg,$(PACKAGE_PROVIDES),--provides $(pkg))
+endif
+
+ifdef PACKAGE_URL
+FPM_ARGS += --url $(PACKAGE_URL)
+endif
 
 ifeq ($(FPM_SOURCE),dir)
 FPM_CMD := fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) -n $(NAME) \
 	-v $(VERSION) -C $(DESTDIR) .
 else
 FPM_CMD := fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) -v $(VERSION) $(NAME)
+endif
+
+all: build package
+
+checkversion:
+ifndef VERSION
+$(error Did not specify package version)
 endif
 
 $(BUILDDIR):
