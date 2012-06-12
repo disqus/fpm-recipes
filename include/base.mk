@@ -1,8 +1,11 @@
-BUILDDIR = tmp/build
-CACHEDIR = tmp/cache
-PKGDIR = pkg
+TOP := $(CURDIR)
+BUILDDIR = $(TOP)/tmp/build
+CACHEDIR = $(TOP)/tmp/cache
+DESTDIR = $(TOP)/tmp/dest
+PKGDIR = $(TOP)/pkg
 
-.PHONY: all checkversion clean distclean build package
+.PHONY: all checkversion clean distclean default_build default_fetch \
+	 default_package
 
 ifndef ITERATION
 ITERATION = 1
@@ -17,15 +20,25 @@ endif
 
 FPM_ARGS += $(DEPENDS) --iteration $(ITERATION) -v $(VERSION)
 
+ifeq ($(FPM_SOURCE),dir)
+FPM_CMD := fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) -n $(NAME) \
+	-v $(VERSION) -C $(DESTDIR) .
+else
+FPM_CMD := fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) -v $(VERSION) $(NAME)
+endif
+
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
 
-$(TMPDIR):
-	mkdir -p $(TMPDIR)
+$(CACHEDIR):
+	mkdir -p $(CACHEDIR)
+
+$(DESTDIR):
+	mkdir -p $(DESTDIR)
 
 $(PKGDIR):
 	mkdir -p $(PKGDIR)
-	cd $(PKGDIR); fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) $(NAME)
+	cd $(PKGDIR); $(FPM_CMD)
 
 clean:
 	rm -rf tmp
@@ -33,6 +46,13 @@ clean:
 distclean: clean
 	rm -rf $(PKGDIR)
 
-build: $(BUILDDIR)
+default_fetch: $(CACHEDIR)
+	cd $(CACHEDIR); wget $(SOURCE_URL)
 
-package: $(PKGDIR)
+default_build: $(BUILDDIR) $(DESTDIR)
+
+default_package: $(PKGDIR)
+
+fetch: default_fetch
+build: default_build
+package: default_package
