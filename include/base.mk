@@ -14,6 +14,10 @@ endif
 FPM_ARGS += $(foreach pkg,$(DEPENDS),-d $(pkg))
 FPM_ARGS += --iteration $(ITERATION) -v $(VERSION)
 
+ifdef LICENSE
+FPM_ARGS += --license $(LICENSE)
+endif
+
 ifdef PACKAGE_DESCRIPTION
 FPM_ARGS += --description "$(PACKAGE_DESCRIPTION)"
 endif
@@ -44,9 +48,9 @@ endif
 
 ifeq ($(FPM_SOURCE),dir)
 FPM_CMD := fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) -n $(NAME) \
-	-v $(VERSION) -C $(DESTDIR) .
+	-C $(DESTDIR) .
 else
-FPM_CMD := fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) -v $(VERSION) $(NAME)
+FPM_CMD := fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) $(NAME)
 endif
 
 all: build package
