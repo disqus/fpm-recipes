@@ -22,4 +22,4 @@ extract: fetch default_build
 
 build: extract
 	cd $(BUILDDIR)/$(firstword $(subst ., ,$(SRC_TGZ))); \
-		./configure --prefix=/usr --enable-m64-build --without-javac && make install
+		./configure --prefix=/usr/local --enable-m64-build --without-javac && make install
