@@ -11,7 +11,20 @@ ifndef ITERATION
 ITERATION = 1
 endif
 
-FPM_ARGS += $(foreach pkg,$(DEPENDS),-d $(pkg))
+NULL :=
+SPACE := $(NULL) $(NULL)
+
+DQUOTE = "
+# Stupid highlighting, let's give it another double-quote "
+
+# Makes '-d "$1"' if $1 is a non-empty string
+add_d = $(if $(strip $1),-d "$(strip $1)")
+
+# Replace spaces with +, explode on ", then call add_d after turning + back into spaces
+# This is to support: DEPENDS = "package (>= 1.0)" other_pack "some_other_packge"
+# GNU Make implictly thinks a space is a delimiter, so have to change it to read the above line
+FPM_ARGS += $(foreach pkg,$(subst $(DQUOTE),$(SPACE),$(subst $(SPACE),+,$(DEPENDS))),$(call add_d,$(subst +,$(SPACE),$(pkg))))
+
 FPM_ARGS += --iteration $(ITERATION) -v $(VERSION)
 
 ifdef LICENSE
