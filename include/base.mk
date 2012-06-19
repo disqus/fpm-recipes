@@ -23,9 +23,9 @@ add_d = $(if $(strip $1),-d "$(strip $1)")
 # Replace spaces with +, explode on ", then call add_d after turning + back into spaces
 # This is to support: DEPENDS = "package (>= 1.0)" other_pack "some_other_packge"
 # GNU Make implictly thinks a space is a delimiter, so have to change it to read the above line
-quoted_map = $(foreach i,$(subst $(DQUOTE),$(SPACE),$(subst $(SPACE),+,$1)),$(call $2,$(subst +,$(SPACE),$i)))
+quoted_map = $(foreach i,$(subst $(DQUOTE),$(SPACE),$(subst $(SPACE),+,$2)),$(call $1,$(subst +,$(SPACE),$i)))
 
-FPM_ARGS += $(call quoted_map,$(DEPENDS),add_d)
+FPM_ARGS += $(call quoted_map,add_d,$(DEPENDS))
 
 FPM_ARGS += --iteration $(ITERATION) -v $(VERSION)
 
