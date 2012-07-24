@@ -1,6 +1,6 @@
 NAME = storm
 VERSION = 0.8.0-SNAPSHOT
-DEPENDS := "openjdk-6-jre" "libzmq1"
+DEPENDS := "openjdk-6-jre" "storm-jzmq"
 FPM_SOURCE = dir
 SOURCE_URL = https://github.com/downloads/nathanmarz/storm/storm-${VERSION}.zip
 SRC_TGZ = $(notdir $(SOURCE_URL))
