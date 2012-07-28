@@ -4,7 +4,7 @@ DEPENDS := openjdk-6-jre
 FPM_SOURCE = dir
 SOURCE_URL = https://github.com/twall/jna/blob/$(VERSION)/dist/jna.jar?raw=true
 PACKAGE_URL = https://github.com/twall/jna/
-PACKAGE_DESCRIPTION = JNA allows you to call directly into native functions using natural Java method invocation
+PACKAGE_DESCRIPTION = Dynamic access of native libraries from Java without JNI
 
 include ../include/base.mk
 
