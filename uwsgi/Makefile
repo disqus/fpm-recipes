@@ -12,9 +12,12 @@ include ../include/base.mk
 
 extract: fetch default_build
 	tar xzf $(CACHEDIR)/$(SRC_TGZ) -C $(BUILDDIR)
+	cp *.ini $(BUILDDIR)/uwsgi-$(VERSION)/buildconf/
 
 build: extract
 	mkdir -p $(DESTDIR)/usr/bin $(DESTDIR)/usr/lib/uwsgi/plugins
 	cd $(BUILDDIR)/uwsgi-$(VERSION) && \
-		python uwsgiconfig.py --build $(BUILDDIR)/../../package.ini
-
+		python uwsgiconfig.py --build fpm-package && \
+		install -D -m 0755 $(BUILDDIR)/uwsgi-$(VERSION)/uwsgi $(DESTDIR)/usr/bin/uwsgi && \
+		python uwsgiconfig.py --clean && \
+		python uwsgiconfig.py --build fpm-plugins
