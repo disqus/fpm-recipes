@@ -11,7 +11,7 @@ PACKAGE_DESCRIPTION = Java language binding for 0MQ
 
 include ../include/base.mk
 
-JAVA_HOME ?= /usr/lib/jvm/java-6-openjdk
+JAVA_HOME ?= /usr/lib/jvm/java-6-sun/
 export JAVA_HOME
 export DESTDIR
 

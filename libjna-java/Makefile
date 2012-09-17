@@ -1,6 +1,6 @@
 NAME = libjna-java
 VERSION = 3.4.1
-DEPENDS := openjdk-6-jre
+DEPENDS := "libc6 (>= 2.4)" "libffi5 (>= 3.0.4)"
 FPM_SOURCE = dir
 SOURCE_URL = https://github.com/twall/jna/blob/$(VERSION)/dist/jna.jar?raw=true
 PACKAGE_URL = https://github.com/twall/jna/

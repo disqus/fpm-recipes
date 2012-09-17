@@ -1,5 +1,5 @@
 NAME = libzmq1
-VERSION = 2.2.0
+VERSION = 2.1.7
 SOURCE_URL = http://download.zeromq.org/zeromq-$(VERSION).tar.gz
 
 DEPENDS := "libuuid1 (>= 2.16)"
