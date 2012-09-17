@@ -1,8 +1,8 @@
 NAME = logstash
-VERSION = 1.1.0
-DEPENDS := openjdk-6-jre
+VERSION = 1.1.1
+DEPENDS := java6-runtime
 FPM_SOURCE = dir
-SOURCE_URL = http://semicomplete.com/files/logstash/logstash-1.1.0-monolithic.jar
+SOURCE_URL = http://semicomplete.com/files/logstash/logstash-$(VERSION)-monolithic.jar
 PACKAGE_URL = http://logstash.net
 PACKAGE_DESCRIPTION = logstash is a tool for managing events and logs.
 INSTALLED_JAR_NAME = logstash-monolithic.jar
