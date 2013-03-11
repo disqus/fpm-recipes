@@ -1,5 +1,5 @@
 NAME = uwsgi
-VERSION = 1.2.5
+VERSION = 1.4.8
 SOURCE_URL = http://projects.unbit.it/downloads/uwsgi-$(VERSION).tar.gz 
 SRC_TGZ = $(notdir $(SOURCE_URL))
 
