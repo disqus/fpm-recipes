@@ -1,8 +1,8 @@
 NAME = storm
-VERSION = 0.8.0
+VERSION = 0.8.2
 DEPENDS := "java6-runtime, storm-jzmq"
 FPM_SOURCE = dir
-SOURCE_URL = https://github.com/downloads/nathanmarz/storm/storm-$(VERSION).zip
+SOURCE_URL = https://dl.dropbox.com/u/133901206/storm-$(VERSION).zip
 SRC_TGZ = $(notdir $(SOURCE_URL))
 PACKAGE_URL = http://storm-project.net/
 PACKAGE_DESCRIPTION = Storm is a free and open source distributed realtime computation system.
