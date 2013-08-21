@@ -22,4 +22,5 @@ build: extract
 	cd $(BUILDDIR)/$(SRC_DIR); \
 		./autogen.sh && \
 		./configure --prefix=/usr CFLAGS="$(shell dpkg-buildflags --get CFLAGS)" LDFLAGS="-Wl,--as-needed -Wl,-z,defs" && \
+		sed -i 's/classdist_noinst.stamp/classnoinst.stamp/g' src/Makefile.am && \
 		make install
