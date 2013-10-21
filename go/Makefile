@@ -1,5 +1,5 @@
 NAME = go
-VERSION = 1.1.1
+VERSION = 1.1.2
 FPM_SOURCE = dir
 SOURCE_URL = https://go.googlecode.com/files/$(NAME)$(VERSION).linux-amd64.tar.gz
 PACKAGE_URL = http://golang.org
