@@ -58,7 +58,7 @@ FPM_ARGS += --before-install $(PREINSTALL)
 endif
 
 ifdef PREUNINSTALL
-FPM_ARGS += --before-uninstall $(PREUNINSTALL)
+FPM_ARGS += --before-remove $(PREUNINSTALL)
 endif
 
 ifeq ($(FPM_SOURCE),dir)
