@@ -1,0 +1,43 @@
+# Patch: https://github.com/nathanmarz/storm/pull/460/
+# Ticket: https://issues.apache.org/jira/browse/STORM-156
+
+From 912b4a40dcc95904d06999717e5820b2d88058c1 Mon Sep 17 00:00:00 2001
+From: Viral Bajaria <viral@ntropy.io>
+Date: Fri, 8 Feb 2013 23:29:48 -0800
+Subject: [PATCH] fix ClassNotFoundException when running lein jar
+
+---
+ storm-core/src/clj/backtype/storm/testing4j.clj | 3 ++-
+ storm-core/src/clj/storm/trident/testing.clj    | 1 +
+ 2 files changed, 3 insertions(+), 1 deletion(-)
+
+diff --git a/storm-core/src/clj/backtype/storm/testing4j.clj b/src/clj/backtype/storm/testing4j.clj
+index 0e517f6..975d999 100644
+--- a/storm-core/src/clj/backtype/storm/testing4j.clj
++++ b/storm-core/src/clj/backtype/storm/testing4j.clj
+@@ -1,4 +1,5 @@
+ (ns backtype.storm.testing4j
++  (:require [backtype.storm.LocalCluster :as LocalCluster])
+   (:import [java.util Map List Collection ArrayList])
+   (:import [backtype.storm Config ILocalCluster LocalCluster])
+   (:import [backtype.storm.generated StormTopology])
+@@ -135,4 +136,4 @@
+        (let [stream (or (.getStream param) Utils/DEFAULT_STREAM_ID)
+              component (or (.getComponent param) "component")
+              fields (.getFields param)]
+-         (test-tuple values :stream stream :component component :fields fields)))))
+\ No newline at end of file
++         (test-tuple values :stream stream :component component :fields fields)))))
+diff --git a/storm-core/src/clj/storm/trident/testing.clj b/src/clj/storm/trident/testing.clj
+index 0b7de3e..9cccbb3 100644
+--- a/storm-core/src/clj/storm/trident/testing.clj
++++ b/storm-core/src/clj/storm/trident/testing.clj
+@@ -1,4 +1,5 @@
+ (ns storm.trident.testing
++  (:require [backtype.storm.LocalDRPC :as LocalDRPC])
+   (:import [storm.trident.testing FeederBatchSpout FeederCommitterBatchSpout MemoryMapState MemoryMapState$Factory TuplifyArgs])
+   (:import [backtype.storm LocalDRPC])
+   (:import [backtype.storm.tuple Fields])
+-- 
+1.9.1
+
