@@ -30,4 +30,4 @@ build: verify extract patch
 
 	cd $(BUILDDIR)/storm-$(VERSION) \
 		&& mkdir -p $(DESTDIR)/usr/local/$(NAME) \
-		&& cp -pR $(BUILDDIR)/storm-* $(DESTDIR)/usr/local/$(NAME)
+		&& cp -pR $(BUILDDIR)/storm-*/* $(DESTDIR)/usr/local/$(NAME)
