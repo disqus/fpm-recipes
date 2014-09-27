@@ -1,5 +1,5 @@
 NAME = grafana
-VERSION = 1.6.1
+VERSION = 1.8.0
 FPM_SOURCE = dir
 SOURCE_URL = http://grafanarel.s3.amazonaws.com/grafana-$(VERSION).tar.gz
 SRC_TGZ = $(notdir $(SOURCE_URL))
