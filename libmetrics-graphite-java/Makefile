@@ -1,5 +1,5 @@
 NAME = libmetrics-graphite-java
-VERSION = 2.0.3
+VERSION = 2.2.0
 DEPENDS = 
 FPM_SOURCE = dir
 SOURCE_URL = http://search.maven.org/remotecontent?filepath=com/yammer/metrics/metrics-graphite/$(VERSION)/metrics-graphite-$(VERSION).jar
