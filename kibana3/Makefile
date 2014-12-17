@@ -1,5 +1,5 @@
 NAME = kibana3
-VERSION = 3.1.0
+VERSION = 3.1.2
 FPM_SOURCE = dir
 SOURCE_URL = https://download.elasticsearch.org/kibana/kibana/kibana-$(VERSION).tar.gz
 SRC_TGZ = $(notdir $(SOURCE_URL))
