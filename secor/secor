@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Use JAVA_HOME if set, otherwise look for java in PATH
+if [ -n "$JAVA_HOME" ]; then
+    # Why we can't have nice things: Solaris combines x86 and x86_64
+    # installations in the same tree, using an unconventional path for the
+    # 64bit JVM.  Since we prefer 64bit, search the alternate path first,
+    # (see https://issues.apache.org/jira/browse/CASSANDRA-4638).
+    for java in "$JAVA_HOME"/bin/amd64/java "$JAVA_HOME"/bin/java; do
+        if [ -x "$java" ]; then
+            JAVA="$java"
+            break
+        fi
+    done
+else
+    JAVA=java
+fi
+
+if [ -z $JAVA ] ; then
+    echo Unable to find java executable. Check JAVA_HOME and PATH environment variables. > /dev/stderr
+    exit 1;
+fi
+
+# Use SECOR_ENV if set, otherwise use "prod"
+if [ -n "$SECOR_ENV" ]; then
+    SECOR_ENV=$SECOR_ENV
+else
+    SECOR_ENV=prod
+fi
+
+if [ -z "$@" ]; then
+    echo You need to pass along a class. > /dev/stderr
+    exit 1;
+fi
+
+CLASSPATH="/usr/share/secor/secor-0.1-SNAPSHOT.jar:/usr/share/secor/lib/*:/etc/secor"
+secor_parms="-Dlog4j.configuration=log4j.$SECOR_ENV.properties -Dconfig=secor.$SECOR_ENV.backup.properties"
+classmodule="com.pinterest.secor.main"
+class=$1
+
+"$JAVA" -ea -cp "$CLASSPATH" -Dsecor_group=secor_backup $JVM_OPTS $secor_parms "$classmodule.$class" ${@:2} 2>&1
+
+exit $?
