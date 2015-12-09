@@ -13,7 +13,7 @@ default_fetch: $(CACHEDIR)
 	cd $(CACHEDIR) && unzip $(NAME).zip 
 
 build: fetch default_build
-	mkdir -p $(DESTDIR)/usr/share/kafka
+	mkdir -p $(DESTDIR)/usr/share/kafka/lib
 	cd $(CACHEDIR)/$(NAME)-master && \
 	./gradlew shadowJar --info
 	cp $(CACHEDIR)/$(NAME)-master/build/libs/$(NAME)-master-$(VERSION)-all.jar $(DESTDIR)/usr/share/kafka/lib/$(NAME)-$(VERSION)-all.jar
