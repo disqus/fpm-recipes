@@ -16,4 +16,4 @@ build: fetch default_build
 	mkdir -p $(DESTDIR)/usr/share/kafka
 	cd $(CACHEDIR)/$(NAME)-master && \
 	./gradlew shadowJar --info
-	cp $(CACHEDIR)/$(NAME)-master/build/libs/$(NAME)-master-$(VERSION)-all.jar $(DESTDIR)/usr/share/kafka/$(NAME)-$(VERSION)-all.jar
+	cp $(CACHEDIR)/$(NAME)-master/build/libs/$(NAME)-master-$(VERSION)-all.jar $(DESTDIR)/usr/share/kafka/lib/$(NAME)-$(VERSION)-all.jar
