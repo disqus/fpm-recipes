@@ -1,8 +1,8 @@
 NAME = libmetrics-graphite-java
-VERSION = 2.2.0
+VERSION = 3.1.2
 DEPENDS = 
 FPM_SOURCE = dir
-SOURCE_URL = http://search.maven.org/remotecontent?filepath=com/yammer/metrics/metrics-graphite/$(VERSION)/metrics-graphite-$(VERSION).jar
+SOURCE_URL = http://search.maven.org/remotecontent?filepath=io/dropwizard/metrics/metrics-graphite/$(VERSION)/metrics-graphite-$(VERSION).jar
 PACKAGE_URL = https://github.com/codahale/metrics/tree/master/metrics-graphite
 PACKAGE_DESCRIPTION = Graphite Metrics Reporter
 
