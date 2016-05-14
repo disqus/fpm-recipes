@@ -3,9 +3,9 @@ BUILDDIR = $(TOP)/tmp/build
 CACHEDIR = $(TOP)/tmp/cache
 DESTDIR = $(TOP)/tmp/dest
 PKGDIR = $(TOP)/pkg
+PKGFILE = $(NAME)_$(VERSION)-$(ITERATION)_amd64.deb
 
-.PHONY: all checkversion clean distclean default_build default_fetch \
-	 default_package
+.PHONY: all checkversion clean distclean default_build default_package fetch
 
 ifndef ITERATION
 ITERATION = 1
@@ -63,7 +63,7 @@ endif
 
 ifeq ($(FPM_SOURCE),dir)
 FPM_CMD := fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) -n $(NAME) \
-	-C $(DESTDIR) --deb-user root --deb-group root .
+	-C $(DESTDIR) .
 else
 FPM_CMD := fpm -t deb -s $(FPM_SOURCE) $(FPM_ARGS) $(NAME)
 endif
@@ -86,7 +86,12 @@ $(DESTDIR):
 
 $(PKGDIR):
 	mkdir -p $(PKGDIR)
+
+$(PKGDIR)/$(PKGFILE): $(PKGDIR)
 	cd $(PKGDIR); $(FPM_CMD)
+
+$(CACHEDIR)/$(DOWNLOADED_FILE):
+	cd $(CACHEDIR); wget -O $(DOWNLOADED_FILE) $(SOURCE_URL)
 
 clean:
 	rm -rf tmp
@@ -94,13 +99,10 @@ clean:
 distclean: clean
 	rm -rf $(PKGDIR)
 
-default_fetch: $(CACHEDIR)
-	cd $(CACHEDIR); wget $(SOURCE_URL)
+default_build: $(BUILDDIR) $(DESTDIR) fetch
+default_package: $(PKGDIR)/$(PKGFILE)
 
-default_build: $(BUILDDIR) $(DESTDIR)
+fetch: $(CACHEDIR) $(CACHEDIR)/$(DOWNLOADED_FILE)
 
-default_package: $(PKGDIR)
-
-fetch: default_fetch
 build: default_build
 package: default_package
