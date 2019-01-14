@@ -1,0 +1,39 @@
+buildscript {
+    repositories {
+        jcenter()
+        mavenCentral()
+    }
+    dependencies {
+      classpath 'com.github.jengelman.gradle.plugins:shadow:4.0.3'
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'com.github.johnrengelman.shadow'
+
+group = 'exhibitor'
+archivesBaseName = 'exhibitor'
+version = '1.7.1'
+
+repositories {
+    jcenter()
+    mavenCentral()
+    maven {
+        url "https://repository.jboss.org/nexus/content/groups/public/"
+    }
+}
+
+dependencies {
+    compile 'io.soabase.exhibitor:exhibitor-standalone:1.7.1'
+}
+
+jar {
+    manifest {
+        attributes (
+            'Main-Class': 'com.netflix.exhibitor.application.ExhibitorMain',
+            'Implementation-Version': project.version
+        )
+    }
+}
+
+assemble.dependsOn shadowJar
