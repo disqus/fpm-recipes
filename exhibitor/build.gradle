@@ -25,6 +25,13 @@ repositories {
 
 dependencies {
     compile 'io.soabase.exhibitor:exhibitor-standalone:1.7.1'
+
+    // Due to an issue merging Jersey into the bundled jar, we need to include
+    // jersey-bundle. This version should be kept in sync with the jersey
+    // version included in the Exhibitor pom.xml when updating the package.
+    //
+    // See: https://stackoverflow.com/questions/12611213/jersey-exception-only-thrown-when-depencencies-assembled-into-a-single-jar
+    runtime 'com.sun.jersey:jersey-bundle:1.18.3'
 }
 
 jar {
